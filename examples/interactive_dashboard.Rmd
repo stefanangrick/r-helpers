@@ -1,0 +1,104 @@
+---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: bootstrap
+---
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library("oemdlRtools")
+library("xts")
+library("plotly")
+source("plotly_chart_helpers.R")
+
+my_sector   <- "JAPAN"
+db_file_new <- "C:/OEF/OEMDLRTOOLS/Jan20_1.db"
+db_file_old <- "C:/OEF/OEMDLRTOOLS/WPO.db"
+start_yr    <- 2016
+end_yr      <- 2024
+
+db_new <- read_oedb(db = db_file_new, sector = my_sector,
+                    start_year = start_yr, end_year = end_yr, as_xts = TRUE)
+db_old <- read_oedb(db = db_file_old, sector = my_sector,
+                    start_year = start_yr, end_year = end_yr, as_xts = TRUE)
+```
+
+**Last updated:** `r Sys.time()`&nbsp;
+**db_file_new:** `r db_file_new`&nbsp;
+**db_file_old:** `r db_file_old`&nbsp;
+**my_sector:** `r my_sector`&nbsp;
+**start_year:** `r start_yr`&nbsp;
+**end_year:** `r end_yr`&nbsp;
+
+# Dashboard{.hidden}
+
+## Column 1
+
+### GDP
+
+```{r}
+plotly_line_growth(merge.xts(db_new$dat[, "GDP_JAPAN"],
+                             db_old$dat[, "GDP_JAPAN"]),
+                   y_lab = "JPY", colpal = oe_palette()[seq_len(2)])
+```
+
+### CPI
+
+```{r}
+plotly_line_growth(merge.xts(db_new$dat[, "CPI_JAPAN"],
+                             db_old$dat[, "CPI_JAPAN"]),
+                   y_lab = "Index", colpal = oe_palette()[seq_len(2)])
+```
+
+## Column 2
+
+### Consumption
+
+```{r}
+plotly_line_growth(merge.xts(db_new$dat[, "C_JAPAN"],
+                             db_old$dat[, "C_JAPAN"]),
+                   y_lab = "JPY", colpal = oe_palette()[seq_len(2)])
+```
+
+### Monetary policy
+
+```{r}
+plotly_line_growth(merge.xts(db_new$dat[, "RCB_JAPAN"],
+                             db_old$dat[, "RCB_JAPAN"]),
+                   y_lab = "%", colpal = oe_palette()[seq_len(2)])
+```
+
+## Column 3
+
+### Investment
+
+```{r}
+plotly_line_growth(merge.xts(db_new$dat[, "IF_JAPAN"],
+                             db_old$dat[, "IF_JAPAN"]),
+                   y_lab = "JPY", colpal = oe_palette()[seq_len(2)])
+```
+
+### Bond yields
+
+```{r}
+plotly_line_growth(merge.xts(db_new$dat[, "RLG_JAPAN"],
+                             db_old$dat[, "RLG_JAPAN"]),
+                   y_lab = "%", colpal = oe_palette()[seq_len(2)])
+```
+
+## Column 4
+
+### Unemployment
+
+```{r}
+plotly_line_growth(merge.xts(db_new$dat[, "UP_JAPAN"],
+                             db_old$dat[, "UP_JAPAN"]),
+                   y_lab = "%", colpal = oe_palette()[seq_len(2)])
+```
+
+### Equities
+
+```{r}
+plotly_line_growth(merge.xts(db_new$dat[, "PSH_JAPAN"],
+                             db_old$dat[, "PSH_JAPAN"]),
+                   y_lab = "Index", colpal = oe_palette()[seq_len(2)])
+```
