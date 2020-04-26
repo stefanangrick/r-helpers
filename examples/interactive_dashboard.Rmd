@@ -8,6 +8,7 @@ output:
 library("oemdlRtools")
 library("xts")
 library("plotly")
+library("lubridate")
 source("plotly_chart_helpers.R")
 
 my_sector   <- "JAPAN"
