@@ -59,8 +59,8 @@ More information is available
 
 ## Interactive data dashboard example
 
-`examples/interactive_dashboard.Rmd` contains an example of an
-interactive data dashboard which uses the
+`interactive_dashboard.Rmd` contains an example of an interactive data
+dashboard which uses the
 [oemdlRtools](https://github.com/stefanangrick/oemdlRtools) R package
 along with the
 [flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/) package
